@@ -91,7 +91,7 @@ class BigQueryClient:
         cache.set(cache_key, results, timeout=settings.CACHE_TIMEOUT)
         return results
     
-    def get_indicator_summary(self, limit: int, indicator_name: str) -> List:
+    def get_indicator_summary(self, limit: int, indicator_name: str, indicator_code: str) -> List:
         """
         Retrieve a list of indicator summaries.
 
@@ -105,12 +105,13 @@ class BigQueryClient:
         query_string = f"""
                 SELECT DISTINCT indicator_code, indicator_name
                 FROM `{self.INTERNATIONAL_EDUCATION_TABLE}`
-                WHERE indicator_name LIKE @indicator_name
+                WHERE indicator_name LIKE @indicator_name AND indicator_code LIKE @indicator_code
                 ORDER BY indicator_name ASC
                 LIMIT @limit
         """
         parameters = [
             bigquery.ScalarQueryParameter("limit", "INT64", limit),
-            bigquery.ScalarQueryParameter("indicator_name", "STRING", f'%{indicator_name}%' )
+            bigquery.ScalarQueryParameter("indicator_name", "STRING", f'%{indicator_name}%' ),
+            bigquery.ScalarQueryParameter("indicator_code", "STRING", f'%{indicator_code}' )
         ]   
         return self.query(query_string, parameters)

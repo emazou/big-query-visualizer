@@ -6,6 +6,7 @@ class IndicatorSummarySerializer(serializers.Serializer):
     """
     indicator_name = serializers.CharField(required=True)
     limit = serializers.IntegerField(required=True)
+    indicator_code = serializers.CharField(required=True)
 
     def validate(self, data):
         """

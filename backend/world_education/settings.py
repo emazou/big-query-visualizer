@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'users',
     'core',
     'data_query_api',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -44,6 +45,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 REST_FRAMEWORK = {
@@ -141,3 +144,6 @@ CACHES = {
 
 # Cache timeout in seconds for the API endpoints that are cached 
 CACHE_TIMEOUT = 60 * 60 * 24 * 7 # 7 days
+
+# CORS
+CORS_ALLOW_ALL_ORIGINS = True

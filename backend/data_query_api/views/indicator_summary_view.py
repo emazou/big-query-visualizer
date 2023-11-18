@@ -16,7 +16,7 @@ class IndicatorSummaryAPIView(APIView):
         if serializer.is_valid():
             data = serializer.data
             bigquery_client = BigQueryClient()
-            data = bigquery_client.get_indicator_summary(data['limit'], data['indicator_name'])
+            data = bigquery_client.get_indicator_summary(data['limit'], data['indicator_name'], data['indicator_code'])
             return response(data, 'Indicator summary', status_code=status.HTTP_200_OK)
         else:
             return response(None, serializer.errors, False, status_code=status.HTTP_400_BAD_REQUEST)
