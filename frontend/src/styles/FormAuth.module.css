@@ -1,0 +1,21 @@
+.form {
+    width: 100%;
+    max-width: 330px;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    overflow: auto;
+    gap: 1px;
+}
+
+.buttonSubmit{
+    width: 100%;
+    margin-top: 5px;
+}
+
+.formItem{
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}

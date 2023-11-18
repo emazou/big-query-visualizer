@@ -1,0 +1,17 @@
+.commentContainer {
+    background-color: #f9f8f8;
+    border-radius: 4px;
+    margin-top: 4px;
+    width: 100%;
+    padding: .5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e6e6e6;
+}
+
+.infoContainer {
+    display: flex;
+    width: 100%;
+    gap: 1em;
+}
