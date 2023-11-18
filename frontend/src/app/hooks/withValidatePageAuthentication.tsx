@@ -1,0 +1,38 @@
+/* eslint-disable react/display-name */
+import type { NextPage } from 'next';
+import { useAppSelector } from './hooks';
+import { useRouter } from 'next/router';
+import {useValidateTokenMutation} from '@/features/user/userAPI';
+import { useEffect } from 'react';
+
+const withValidatePageAuthentication = <T extends Record<string, unknown>>(
+    Component: NextPage<T>
+) => (props: T) => {
+        const token = useAppSelector((state) => state.user.token);
+        const user = useAppSelector((state) => state.user.value);
+        const { push, pathname } = useRouter();
+        
+        const [validateToken] = useValidateTokenMutation();
+        useEffect(() => {
+            if (token) {
+                validateToken(token)
+                    .unwrap()
+                    .then((res) => {
+                        if (res.success) return true;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        push('/');
+                    });
+            } else if (!['/login', '/register', '/'].includes(pathname)) {
+                push('/');
+            }
+            if (user && ['/login', '/register', '/'].includes(pathname)) { 
+                push('/visual-query-builder');
+            }
+        },[token, user, pathname]);
+
+        return <Component {...props} />;
+    };
+
+export default withValidatePageAuthentication;
