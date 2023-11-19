@@ -1,4 +1,4 @@
-name: Create and publish a Docker image
+name: Create and publish Docker images
 
 on:
   push:
@@ -14,6 +14,15 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - context: ./frontend
+            dockerfile: Dockerfile
+            image_suffix: frontend
+          - context: ./backend
+            dockerfile: Dockerfile
+            image_suffix: backend
     permissions:
       contents: read
       packages: write
@@ -33,7 +42,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.image_suffix }}
           tags: |
             type=semver,pattern={{version}}
             type=sha,prefix=commit-
@@ -52,7 +61,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ${{ matrix.context }}
+          file: ${{ matrix.context }}/${{ matrix.dockerfile }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
