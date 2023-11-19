@@ -79,5 +79,20 @@ class UserAccountTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['message'], 'Token is valid')
 
+    def test_register_with_existing_username(self):
+        """
+        Ensure we cannot register a new user with an existing username.
+        """
+        data = {
+            'username': 'testuser',
+            'password': 'testpassword',
+            'password2': 'testpassword',
+            'email': 'testuser@example.com',
+            'first_name': 'Test',
+            'last_name': 'User'
+        }
+        response = self.client.post(self.register_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
 
 

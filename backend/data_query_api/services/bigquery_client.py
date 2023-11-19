@@ -65,6 +65,8 @@ class BigQueryClient:
         Returns:
             List: A list of filtered education data.
         """
+
+        # Check if the result is cached and return it if it is.
         cache_key = f"{country_code}_{start_year}_{end_year}_{indicator_code}"
         cached_result = cache.get(cache_key)
 
@@ -80,6 +82,7 @@ class BigQueryClient:
             ORDER BY year ASC;
         """
 
+        # Set query parameters and execute the query.
         parameters = [
             bigquery.ScalarQueryParameter("start_year", "INT64", start_year),
             bigquery.ScalarQueryParameter("end_year", "INT64", end_year),
@@ -98,6 +101,7 @@ class BigQueryClient:
         Args:
             limit (int): Limit for pagination.
             indicator_name (str): Indicator name for filtering. 
+            indicator_code (str): Indicator code for filtering.
 
         Returns:
             List[dist]: A list of indicator summaries.
