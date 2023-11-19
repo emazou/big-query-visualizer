@@ -9,6 +9,10 @@ import { useRouter } from "next/router";
 import withValidatePageAuthentication 
     from "@/app/hooks/withValidatePageAuthentication";
 
+/**
+ * @description Component to display the login page
+ * @returns form to login
+ */
 const LoginPage: NextPage = () => {
     const user = useAppSelector((state) => state.user.value);
     const { push } = useRouter();

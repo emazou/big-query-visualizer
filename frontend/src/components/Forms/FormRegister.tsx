@@ -3,7 +3,7 @@ import { Button, Form, Input, Row, message } from "antd";
 import { FC, useEffect } from "react";
 import styles from "@/styles/FormAuth.module.css";
 import { useLoginMutation, useRegisterMutation } from "@/features/user/userAPI";
-import { SendOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, SendOutlined } from "@ant-design/icons";
 import { setToken, setUser } from "@/features/user/userSlice";
 import { useAppDispatch } from "@/app/hooks/hooks";
 import { forEach } from "lodash";
@@ -19,13 +19,12 @@ const FormRegister: FC = () => {
             .unwrap()
             .then((res) => {
                 message.success(res.message);
-                login({ username: values.username, password: values.password })
+                login({ username: values.username, password: values.password });
             })
             .catch((err) => {
-                console.log(err)
                 forEach(err.data.message, (value, key) => {
                     message.error(`${key}: ${value}`);
-                })
+                });
             });
     };
     useEffect(() => {
@@ -34,7 +33,7 @@ const FormRegister: FC = () => {
             dispatch(setUser(data.data.user));
             message.success('Login success');
         }
-    },[data])
+    },[data]);
 
     return (
         <Form<UserRegister>
@@ -51,7 +50,7 @@ const FormRegister: FC = () => {
                     message: 'Please input your fisrt name!' 
                 }]}
             >
-                <Input />
+                <Input placeholder="Firs name" />
             </Item>
             <Item<UserRegister>
                 className={styles.formItem}
@@ -62,7 +61,7 @@ const FormRegister: FC = () => {
                     message: 'Please input your last name!' 
                 }]}
             >
-                <Input />
+                <Input placeholder="Last name" />
             </Item>
             <Item<UserRegister>
                 className={styles.formItem}
@@ -73,7 +72,7 @@ const FormRegister: FC = () => {
                     message: 'Please input your username!' 
                 }]}
             >
-                <Input />
+                <Input placeholder="Your username" />
             </Item>
             <Item<UserRegister>
                 className={styles.formItem}
@@ -84,7 +83,7 @@ const FormRegister: FC = () => {
                     message: 'Please input your email!' 
                 }]}
             >
-                <Input type='mail' />
+                <Input type='mail' placeholder="youremail@email.com" />
             </Item>
             <Item<UserRegister>
                 className={styles.formItem}
@@ -95,7 +94,7 @@ const FormRegister: FC = () => {
                     message: 'Please input your password!' 
                 }]}
             >
-                <Input.Password />
+                <Input.Password placeholder="***********" minLength={8} />
             </Item>
             <Item<UserRegister>
                 className={styles.formItem}
@@ -103,10 +102,11 @@ const FormRegister: FC = () => {
                 name="password2"
                 rules={[{ 
                     required: true,
-                    message: 'Please input your password!' 
+                    min: 8,
+                    message: 'Your password must be at least 8 characters long' 
                 }]}
             >
-                <Input.Password />
+                <Input.Password placeholder="***********" />
             </Item>
             <Item>
                 <Row justify="center" >
@@ -119,7 +119,10 @@ const FormRegister: FC = () => {
                     >
                         Send
                     </Button>
-                    <Link href={'/login'}>Do you have an account? Login</Link>
+                    <Link 
+                        href={'/login'}
+                    >Do you have an account? Login <ArrowRightOutlined />
+                    </Link>
                 </Row>
             </Item>
         </Form>

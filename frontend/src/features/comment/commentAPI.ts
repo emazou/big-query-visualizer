@@ -1,8 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { api_url } from '@/utils';
 import type { RootState } from '@/app/store';
-import type { ResponseType, Country, EducationData, QueryParamsEducationData, IndicatorSummary } from '@/types';
+import type { ResponseType } from '@/types';
 
+/**
+ * Comment API, used to create and delete comments
+ */
 const commentApi = createApi({
     reducerPath: 'commentApi',
     baseQuery: fetchBaseQuery({ 
@@ -16,7 +19,9 @@ const commentApi = createApi({
         },
     }),
     endpoints: (builder) => ({
-        createComment: builder.mutation<ResponseType<null>, {text: string; username: string; saved_query: number} >({
+        createComment: builder.mutation<ResponseType<null>, {
+            text: string; username: string; saved_query: number
+        } >({
             query: (body) => ({
                 url: '/',
                 method: 'POST',
@@ -27,10 +32,10 @@ const commentApi = createApi({
             query: (id) => ({
                 url: `/${id}`,
                 method: 'DELETE',
+            }),
         }),
-    }),
     })
-})
+});
 
 export const { 
     useCreateCommentMutation,

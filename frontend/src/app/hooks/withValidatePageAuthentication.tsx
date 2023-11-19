@@ -5,6 +5,11 @@ import { useRouter } from 'next/router';
 import {useValidateTokenMutation} from '@/features/user/userAPI';
 import { useEffect } from 'react';
 
+/**
+ * @description HOC to validate authentication in pages, if the user is not authenticated, it will be redirected to the initial page
+ * @param Component 
+ * @returns Component with authentication validation
+ */
 const withValidatePageAuthentication = <T extends Record<string, unknown>>(
     Component: NextPage<T>
 ) => (props: T) => {

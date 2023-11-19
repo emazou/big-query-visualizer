@@ -22,6 +22,9 @@ const persistConfig = {
     storage,
 };
 
+/**
+ * A reducer that combines all of the reducers for the app.
+ */
 const rootReducer = combineReducers({
     user: userReducer,
     currentQuery: dataQuweyReducer,
@@ -31,8 +34,14 @@ const rootReducer = combineReducers({
     [commentApi.reducerPath]: commentApi.reducer,
 });
 
+/**
+ * A reducer that persists the root reducer to local storage.
+ */
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+/**
+ * A store that uses the persisted reducer and the userApi middleware.
+ */
 export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({

@@ -80,3 +80,5 @@ export type IndicatorSummary = {
     indicator_code: string;
     indicator_name: string;
 }
+
+export type Chart = "LineChart" | "BarChart" | "PieChart"

@@ -3,7 +3,7 @@ import { Button, Form, Input, Row, message } from "antd";
 import { FC } from "react";
 import styles from "@/styles/FormAuth.module.css";
 import { useLoginMutation } from "@/features/user/userAPI";
-import { SendOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, SendOutlined } from "@ant-design/icons";
 import { setToken, setUser } from "@/features/user/userSlice";
 import { useAppDispatch } from "@/app/hooks/hooks";
 import Link from "next/link";
@@ -38,7 +38,7 @@ const FormLogin: FC = () => {
                     message: 'Please input your username!' 
                 }]}
             >
-                <Input />
+                <Input placeholder="Your username" />
             </Item>
             <Item<UserLogin>
                 className={styles.formItem}
@@ -46,10 +46,11 @@ const FormLogin: FC = () => {
                 name="password"
                 rules={[{ 
                     required: true,
-                    message: 'Please input your password!' 
+                    min: 8,
+                    message: 'Your password must be at least 8 characters long' 
                 }]}
             >
-                <Input.Password />
+                <Input.Password placeholder="***********"  />
             </Item>
             <Item>
                 <Row justify="center" >
@@ -62,7 +63,11 @@ const FormLogin: FC = () => {
                     >
                         Send
                     </Button>
-                    <Link href={'/register'} >Do you don't have an account? Register</Link>
+                    <Link 
+                        href={'/register'} 
+                    >
+                        Do you do not have an account? Register<ArrowRightOutlined />
+                    </Link>
                 </Row>
             </Item>
         </Form>

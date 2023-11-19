@@ -10,7 +10,7 @@
     "plugin:@typescript-eslint/recommended",
     "next",
     "next/core-web-vitals",
-    "plugin:testting-library/react",
+    "plugin:testing-library/react",
     "plugin:jest-dom/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -18,20 +18,21 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 12,
+    "ecmaVersion": 2021,
     "sourceType": "module"
   },
   "plugins": [
     "react",
-    "@typescript-eslint",
-    "prettier"
+    "@typescript-eslint"
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "semi":["error","always"],
-    "max-len": ["error", { "code": 80 }],
-    "indent": ["error", 4]
+    "semi": ["error", "always"],
+    "max-len": ["error", { "code": 100 }],
+    "indent": ["error", 4],
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-console": "error"
   },
   "settings": {
     "react": {

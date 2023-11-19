@@ -23,7 +23,7 @@ const FormSaveQuery: FC<Props> = ({ query, setOpen }) => {
         })
             .unwrap()
             .then((res) => { 
-                message.success(res.message)
+                message.success(res.message);
                 setOpen();
             })
             .catch((err) => message.error(err.message));
@@ -59,7 +59,7 @@ const FormSaveQuery: FC<Props> = ({ query, setOpen }) => {
                     htmlType="submit">Send</Button>
             </Row>
         </Form>
-    )
+    );
     
-}
+};
 export default FormSaveQuery;
