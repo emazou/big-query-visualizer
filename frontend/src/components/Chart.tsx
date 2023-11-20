@@ -54,6 +54,7 @@ const Chart: FC<Props> = ({ type = 'BarChart', data }) => {
             {
                 type === 'LineChart' && (
                     <LineChart
+                        aria-label="line-chart"
                         {...props}
                     >
                         {chartChildren()}

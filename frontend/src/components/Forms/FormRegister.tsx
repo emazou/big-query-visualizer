@@ -94,11 +94,11 @@ const FormRegister: FC = () => {
                     message: 'Please input your password!' 
                 }]}
             >
-                <Input.Password placeholder="***********" minLength={8} />
+                <Input.Password placeholder="Password" minLength={8} />
             </Item>
             <Item<UserRegister>
                 className={styles.formItem}
-                label="Password"
+                label="Confirm Password"
                 name="password2"
                 rules={[{ 
                     required: true,
@@ -106,7 +106,7 @@ const FormRegister: FC = () => {
                     message: 'Your password must be at least 8 characters long' 
                 }]}
             >
-                <Input.Password placeholder="***********" />
+                <Input.Password placeholder="Password" />
             </Item>
             <Item>
                 <Row justify="center" >

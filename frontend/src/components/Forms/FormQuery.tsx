@@ -84,6 +84,7 @@ const FormQuery: FC<Props> = ({
                             isLoading={isLoadingCountry}
                             isSearchable
                             required
+                            inputId="country-select"
                             loadingMessage={() => 'Loading...'}
                             name="country_code"
                             placeholder="Select a country"
