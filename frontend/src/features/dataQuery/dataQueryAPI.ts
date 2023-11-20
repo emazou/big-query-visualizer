@@ -1,7 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { api_url } from '@/utils';
 import type { RootState } from '@/app/store';
-import type { ResponseType, Country, EducationData, QueryParamsEducationData, IndicatorSummary } from '@/types';
+import type { 
+    ResponseType,
+    Country, 
+    EducationData, 
+    QueryParamsEducationData,
+    IndicatorSummary 
+} from '@/types';
 
 const dataQueryApi = createApi({
     reducerPath: 'dataQueryApi',
@@ -30,8 +36,11 @@ const dataQueryApi = createApi({
                 body,
             }),
         }),
-        getIndicatorSumary: builder.query<ResponseType<IndicatorSummary[]>, {indicator_name:string; limit: number, indicator_code: string} >({
+        getIndicatorSumary: builder.query<ResponseType<IndicatorSummary[]>, {
+            indicator_name:string; limit: number, indicator_code: string
+        } >({
             query: ({indicator_name, limit, indicator_code="_"}) => ({
+                // eslint-disable-next-line max-len
                 url: `/indicator-summary/?indicator_name=${indicator_name}&limit=${limit}&indicator_code=${indicator_code}`,
                 method: 'GET',
             }),

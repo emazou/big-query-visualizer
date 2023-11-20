@@ -1,7 +1,6 @@
 import FormLogin from "@/components/Forms/FormLogin";
 import { Col, Row } from "antd";
 import { NextPage } from "next";
-import Link from 'next/link';
 import { useAppSelector } from "@/app/hooks/hooks";
 import styles from '@/styles/auth.module.css';
 import { useEffect } from "react";
