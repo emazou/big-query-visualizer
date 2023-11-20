@@ -6,7 +6,8 @@ import {useValidateTokenMutation} from '@/features/user/userAPI';
 import { useEffect } from 'react';
 
 /**
- * @description HOC to validate authentication in pages, if the user is not authenticated, it will be redirected to the initial page
+ * @description HOC to validate authentication in pages,
+ *  if the user is not authenticated, it will be redirected to the initial page
  * @param Component 
  * @returns Component with authentication validation
  */
@@ -25,8 +26,7 @@ const withValidatePageAuthentication = <T extends Record<string, unknown>>(
                     .then((res) => {
                         if (res.success) return true;
                     })
-                    .catch((err) => {
-                        console.log(err);
+                    .catch(() => {
                         push('/');
                     });
             } else if (!['/login', '/register', '/'].includes(pathname)) {

@@ -1,11 +1,12 @@
 .header{
-    height: 10vh;
+    height: 46px;
     display: flex;
+    align-items: center;
     justify-content: center;
 }
 .container {
     width: 100vw;
-    height: 90vh;
+    height: calc(100vh - 46px);
     color: #27093a;
     flex-direction: column;
     align-items: center;

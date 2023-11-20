@@ -3,7 +3,7 @@ import { Comment } from '@/types';
 import { Avatar, Button, Popconfirm } from 'antd';
 import styles from '@/styles/Comment.module.css';
 import { first } from 'lodash';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteFilled } from '@ant-design/icons';
 import { useAppSelector } from '@/app/hooks/hooks';
 
 type Props = {
@@ -37,9 +37,9 @@ const CommentComponent: FC<Props> = ({ comment, deleteComment }) => {
                             cancelText="No"
                         >
                             <Button 
-                                icon={<DeleteOutlined />} 
-                                size="small" 
-                                type="text"
+                                danger
+                                icon={<DeleteFilled />} 
+                                size="small"
                             />
                         </Popconfirm>
                     )

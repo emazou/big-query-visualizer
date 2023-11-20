@@ -47,7 +47,6 @@ const LayoutComponent: FC<{children: JSX.Element}> = ({ children }) => {
                 mode="horizontal"
                 items={items}
             />
-
             <Space wrap size={15} className={styles.container}>
                 {children}
             </Space>

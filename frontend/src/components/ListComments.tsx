@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import type { SavedQuery } from "@/types";
-import { Badge, Button, Col, Input, Row, message } from "antd";
+import { Badge, Button, Col, Input, Modal, Row, message } from "antd";
 import { CommentOutlined, SendOutlined, UserOutlined } from "@ant-design/icons";
 import { useCreateCommentMutation, useDeleteCommentMutation } from "@/features/comment/commentAPI";
 import { isEmpty, map, size } from "lodash";
@@ -52,21 +52,7 @@ const ListComments: FC<Props> = ({ savedQuery, refetch }) => {
     };
 
     return (
-        <div>
-            <Input
-                placeholder="Add a comment"
-                prefix={<UserOutlined />}
-                value={commentValue}
-                onPressEnter={() => handlerSubmit(commentValue)}
-                onChange={(e) => setCommentValue(e.target.value)}
-                suffix={(
-                    <Button 
-                        disabled={isLoading || isEmpty(commentValue)}
-                        onClick={() => handlerSubmit(commentValue)} 
-                        icon={<SendOutlined />
-                        } size="small" type="primary" />
-                )}
-            />
+        <div className={styles.container}>
             <Row className={styles.listContainer}>
                 <Col span={24}>
                     <Button
@@ -85,18 +71,42 @@ const ListComments: FC<Props> = ({ savedQuery, refetch }) => {
                             offset={[15, -5]} 
                         />
                     </Button>
+                    <Modal
+                        className={styles.modalComments}
+                        title={`Comments of ${savedQuery.name}`}
+                        footer={null}
+                        onCancel={() => setShowComments(false)}
+                        open={showComments && size(savedQuery.comments) > 0}
+                    >
+                        {
+                            map(
+                                savedQuery.comments,
+                                (comment) => (
+                                    <CommentComponent 
+                                        deleteComment={handlerDeleteComment} 
+                                        comment={comment} 
+                                    />)
+                            )
+                        }
+                    </Modal>
                 </Col>
-                {
-                    showComments && map(
-                        savedQuery.comments,
-                        (comment) => (
-                            <CommentComponent 
-                                deleteComment={handlerDeleteComment} 
-                                comment={comment} 
-                            />)
-                    )
-                }
+                
             </Row>
+            <Input
+                autoFocus
+                placeholder="Add a comment"
+                prefix={<UserOutlined />}
+                value={commentValue}
+                onPressEnter={() => handlerSubmit(commentValue)}
+                onChange={(e) => setCommentValue(e.target.value)}
+                suffix={(
+                    <Button 
+                        disabled={isLoading || isEmpty(commentValue)}
+                        onClick={() => handlerSubmit(commentValue)} 
+                        icon={<SendOutlined />} 
+                        size="small" type="primary" />
+                )}
+            />
         </div>
     );
 };

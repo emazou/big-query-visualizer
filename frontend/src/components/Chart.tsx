@@ -9,7 +9,9 @@ import {
     Legend,
     BarChart,
     Bar,
-    Rectangle 
+    Rectangle, 
+    Scatter,
+    ScatterChart
 } from 'recharts';
 import type { Chart as ChartType, EducationData } from '@/types';
 import { isEmpty } from 'lodash';
@@ -73,6 +75,16 @@ const Chart: FC<Props> = ({ type = 'BarChart', data }) => {
                             background={{ fill: '#eee' }}
                         />
                     </BarChart>
+                )
+            }
+            {
+                type === 'JointLineScatter' && (
+                    <ScatterChart
+                        {...props}
+                    >
+                        {chartChildren()}
+                        <Scatter dataKey="value" fill="#82ca9d" line shape="star"  />
+                    </ScatterChart>
                 )
             }
         </>

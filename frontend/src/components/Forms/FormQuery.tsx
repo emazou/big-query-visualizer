@@ -8,7 +8,7 @@ import styles from "@/styles/FormQuery.module.css";
 
 const { Item } = Form;
 const { RangePicker } = DatePicker;
-const optionChart: Chart[] = ['LineChart', 'BarChart', 'PieChart'];
+const optionChart: Chart[] = ['LineChart', 'BarChart', 'JointLineScatter'];
 
 type Props = {
     countries: Country[];
@@ -161,7 +161,7 @@ const FormQuery: FC<Props> = ({
                     />
                 </Item>
             </Space>
-            <Row justify="end">
+            <Row justify="center">
                 <Space>
                     {
                         isData && (
