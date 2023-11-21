@@ -115,11 +115,31 @@ python manage.py migrate
 
 To facilitate development and deployment, `PART2-TEST` utilizes Docker. Follow these steps to set up and run the application using `docker-compose`.
 
+To achieve this, please remember to configure your database with PostgreSQL as we will be in production.
+
+To achieve this, please remember to configure your database with PostgreSQL as we will be in production.
+
+```python
+# settings.py
+
+DATABASES = {
+    'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': name,
+    'USER': user,
+    'PASSWORD': password,
+    'HOST': host,
+    'PORT': yourport,
+  }
+}
+```
+
 #### Building Docker Images
 
 1. **Build Images**:
    - Make sure you are in the root of the project.
-   - Run the following command to build Docker images for both frontend and backend:
+   - Run the following command to build Docker images for both frontend and 
+   backend:
      ```bash
      docker-compose -f docker-compose.dev.yml build
      ```
@@ -130,6 +150,10 @@ To facilitate development and deployment, `PART2-TEST` utilizes Docker. Follow t
    - Once the images are built, you can start the containers with:
      ```bash
      docker-compose -f docker-compose.dev.yml up
+
+     or
+
+     docker-compose up
      ```
 
 #### Accessing Services
