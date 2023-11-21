@@ -12,6 +12,16 @@ PART2-TEST is a comprehensive full-stack application that combines the power of 
 - **Authentication Module**: The application includes a robust authentication module, which is essential for performing any action within the app. This feature ensures secure access and operation.
 
 
+## Multi-Container Docker Application Demo
+In this section, we will provide a demonstration of our application running within multiple Docker containers. The demonstration offers a detailed insight into how the application functions and is deployed using multiple Docker containers to achieve a highly scalable and modular environment.
+
+Click the following link to watch the demo video:
+[Watch the Docker demo](https://www.loom.com/share/f10232b7c64e4674960f3fc0fe14ee88?sid=3fb2d5fd-fb9e-47f0-92b9-b288272fb9bc)
+
+In this demo, you will see how each component of our application is packaged into separate Docker containers, making it easier to manage and scale our infrastructure. We hope you enjoy the demonstration!
+
+Please note that at the end of this video, there is another explanatory video available in English.
+
 ## Getting Started
 
 ### Prerequisites
