@@ -146,12 +146,14 @@ DATABASES = {
 
 #### Starting Containers
 
+If the images are already run docker-compose up
+
 2. **Run Containers**:
    - Once the images are built, you can start the containers with:
      ```bash
      docker-compose -f docker-compose.dev.yml up
 
-     or
+     or 
 
      docker-compose up
      ```
