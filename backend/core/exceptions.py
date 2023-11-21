@@ -3,7 +3,10 @@ from rest_framework.response import Response
 
 def custom_exception_handler(exc, context):
     """
-    Custom exception handler for the API
+    Custom exception handler for the API, which returns a consistent response format
+    args:
+        exc: Exception object
+        context: Context object          
     """
     response = exception_handler(exc, context)
 

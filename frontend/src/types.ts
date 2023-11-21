@@ -45,7 +45,7 @@ export type Comment = {
 export type SavedQuery = {
     id: number;
     name: string;
-    username: number;
+    username: string;
     comment: string;
     comments: Comment[];
     end_year: number;
@@ -80,3 +80,5 @@ export type IndicatorSummary = {
     indicator_code: string;
     indicator_name: string;
 }
+
+export type Chart = "LineChart" | "BarChart" | "JointLineScatter"

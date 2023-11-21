@@ -7,7 +7,8 @@ from ..serializers.indicator_summary_serializer import IndicatorSummarySerialize
 
 class IndicatorSummaryAPIView(APIView):
     """
-    API endpoint that allows users to get indicator summary.
+    API view to get indicator summary data, indicator name and indicator code.
+    get method to get indicator summary data based on the indicator name, indicator code and limit.
     """
     permission_classes = [IsAuthenticated]
 

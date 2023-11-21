@@ -7,6 +7,12 @@ import { LineChartOutlined, LogoutOutlined, SaveOutlined } from "@ant-design/ico
 import { useAppDispatch } from "@/app/hooks/hooks";
 import { removeUser } from "@/features/user/userSlice";
 
+/**
+ * @description Component to display the layout of the application, 
+ * it contains a header with the navigation menu and the children of the component
+ * @param children 
+ * @returns children wrapped in a layout with a header
+ */
 const LayoutComponent: FC<{children: JSX.Element}> = ({ children }) => {
     const dispatch = useAppDispatch();
     const { pathname } = useRouter();
@@ -21,9 +27,16 @@ const LayoutComponent: FC<{children: JSX.Element}> = ({ children }) => {
         icon: <SaveOutlined />
     },
     {
-        label: <Button onClick={() => dispatch(removeUser())} icon={<LogoutOutlined />} type="dashed" >Logout</Button>,
+        label: (
+            <Button 
+                onClick={() => dispatch(removeUser())} 
+                icon={<LogoutOutlined />} 
+                type="dashed" 
+            >
+            Logout
+            </Button>),
         key: '/logout',
-    }]
+    }];
     return (
         <Layout>
             <Menu
@@ -34,11 +47,10 @@ const LayoutComponent: FC<{children: JSX.Element}> = ({ children }) => {
                 mode="horizontal"
                 items={items}
             />
-
             <Space wrap size={15} className={styles.container}>
                 {children}
             </Space>
         </Layout>
-);
+    );
 };
 export default LayoutComponent;

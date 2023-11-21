@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, authenticate
 from django.shortcuts import get_object_or_404
 from core.response import format_response as response
 from .serializers import UserRegistrationSerializer, UserSerializer

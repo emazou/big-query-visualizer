@@ -1,8 +1,13 @@
 .listContainer{
     background-color: white;
+    z-index: 1;
+    position: relative;
 }
 
 .buttonComments{
     width: 100%;
-    
+}
+
+.popover{
+    width: 400px;
 }

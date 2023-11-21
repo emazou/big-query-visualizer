@@ -1,8 +1,12 @@
 .list{
-    width: 100%;
+    display: flex;
+    width: 100vw;
     justify-content: center;
     padding: 1em 0;
+    height: 100%;
+    gap: 5px;
+    flex-wrap: wrap;
 }
-.card{
-    width: 60%;
+.card {
+    width: 400px;
 }

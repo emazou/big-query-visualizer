@@ -1,7 +1,7 @@
-import { FC, use, useState } from "react";
+import { FC, useState } from "react";
 import type { SavedQuery } from "@/types";
-import { Avatar, Badge, Button, Col, Input, Row, message } from "antd";
-import { CommentOutlined, DeleteOutlined, SendOutlined, UserOutlined } from "@ant-design/icons";
+import { Badge, Button, Col, Input, Modal, Row, message } from "antd";
+import { CommentOutlined, SendOutlined, UserOutlined } from "@ant-design/icons";
 import { useCreateCommentMutation, useDeleteCommentMutation } from "@/features/comment/commentAPI";
 import { isEmpty, map, size } from "lodash";
 import { useAppSelector } from "@/app/hooks/hooks";
@@ -12,7 +12,11 @@ type Props = {
     savedQuery: SavedQuery;
     refetch: () => void;
 }
-
+/**
+ * @description Component to display the comments of a saved query, it also allows to add a comment
+ * @param savedQuery 
+ * @returns comments of a saved query
+ */
 const ListComments: FC<Props> = ({ savedQuery, refetch }) => {
     const [showComments, setShowComments] = useState<boolean>(false);
     const [commentValue, setCommentValue] = useState<string>('');
@@ -29,28 +33,67 @@ const ListComments: FC<Props> = ({ savedQuery, refetch }) => {
             })
                 .unwrap()
                 .then((res) => { 
-                    refetch()
+                    refetch();
                     
-                    message.success(res.message)
-                    setCommentValue('')
+                    message.success(res.message);
+                    setCommentValue('');
                 })
                 .catch((err) => message.error(err.message));
         }
-    }
+    };
     const handlerDeleteComment = (id: number) => {
         deleteComment(id)
             .unwrap()
-            .then((res) => { 
-                refetch()
-                message.success('Comment deleted')
+            .then(() => { 
+                refetch();
+                message.success('Comment deleted');
             })
-            .catch((err) => message.error('Error deleting comment'));
-    }
-
+            .catch(() => message.error('Error deleting comment'));
+    };
 
     return (
-        <div>
+        <div className={styles.container}>
+            <Row className={styles.listContainer}>
+                <Col span={24}>
+                    <Button
+                        type="dashed"
+                        icon={<CommentOutlined />}
+                        size="small"
+                        onClick={() => setShowComments(!showComments)}
+                        className={styles.buttonComments}
+                    >   
+                        Comments
+                        <Badge 
+                            count={size(savedQuery.comments)} 
+                            size="small" 
+                            showZero 
+                            color="green"
+                            offset={[15, -5]} 
+                        />
+                    </Button>
+                    <Modal
+                        className={styles.modalComments}
+                        title={`Comments of ${savedQuery.name}`}
+                        footer={null}
+                        onCancel={() => setShowComments(false)}
+                        open={showComments && size(savedQuery.comments) > 0}
+                    >
+                        {
+                            map(
+                                savedQuery.comments,
+                                (comment) => (
+                                    <CommentComponent 
+                                        deleteComment={handlerDeleteComment} 
+                                        comment={comment} 
+                                    />)
+                            )
+                        }
+                    </Modal>
+                </Col>
+                
+            </Row>
             <Input
+                autoFocus
                 placeholder="Add a comment"
                 prefix={<UserOutlined />}
                 value={commentValue}
@@ -60,32 +103,12 @@ const ListComments: FC<Props> = ({ savedQuery, refetch }) => {
                     <Button 
                         disabled={isLoading || isEmpty(commentValue)}
                         onClick={() => handlerSubmit(commentValue)} 
-                        icon={<SendOutlined />
-                    } size="small" type="primary" />
+                        icon={<SendOutlined />} 
+                        size="small" type="primary" />
                 )}
             />
-            <Row className={styles.listContainer}>
-                <Col span={24}>
-                    <Button
-                        type="dashed"
-                        icon={<CommentOutlined />}
-                        size="small"
-                        onClick={() => setShowComments(!showComments)}
-                        className={styles.buttonComments}
-                        >   
-                        Comments
-                        <Badge count={size(savedQuery.comments)} size="small" showZero color="green" offset={[15, -5]} />
-                    </Button>
-                </Col>
-            {
-                showComments && map(
-                    savedQuery.comments,
-                        (comment) => (<CommentComponent deleteComment={handlerDeleteComment} comment={comment} />)
-                    )
-            }
-            </Row>
         </div>
-    )
-}
+    );
+};
 
 export default ListComments;

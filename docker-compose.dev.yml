@@ -13,18 +13,28 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   backend:
-    image: part2-test-backend:latest
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/app/vmtf-404516-37748537df37.json
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
     env_file:
       - .env
+    volumes:
+      - ./backend:/usr/src/app
     ports:
       - "8000:8000"
     depends_on:
       - db
 
   frontend:
-    image: part2-test-frontend:latest
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
     ports:
       - "9000:9000"
     depends_on:

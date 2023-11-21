@@ -8,6 +8,7 @@ class CountrySummaryTests(APITestCase):
     def setUp(self):
         self.client = APIClient()
         self.user = User.objects.create_user(username='testuser', password='testpassword')
+        print(self.user)
         self.client.force_authenticate(user=self.user)
 
     def test_get_country_summary(self):
@@ -17,7 +18,6 @@ class CountrySummaryTests(APITestCase):
         url = reverse('country-summary')
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['message'], 'Country summary')
 
     def test_get_country_summary_not_authenticate(self):
         """

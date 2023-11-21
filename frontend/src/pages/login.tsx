@@ -1,7 +1,6 @@
 import FormLogin from "@/components/Forms/FormLogin";
 import { Col, Row } from "antd";
 import { NextPage } from "next";
-import Link from 'next/link';
 import { useAppSelector } from "@/app/hooks/hooks";
 import styles from '@/styles/auth.module.css';
 import { useEffect } from "react";
@@ -9,6 +8,10 @@ import { useRouter } from "next/router";
 import withValidatePageAuthentication 
     from "@/app/hooks/withValidatePageAuthentication";
 
+/**
+ * @description Component to display the login page
+ * @returns form to login
+ */
 const LoginPage: NextPage = () => {
     const user = useAppSelector((state) => state.user.value);
     const { push } = useRouter();

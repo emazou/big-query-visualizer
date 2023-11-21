@@ -6,7 +6,10 @@ from ..services.bigquery_client import BigQueryClient
 from ..serializers.education_data_serializer import EducationDataSerializer
 
 class EducationDataAPIView(APIView):
-
+    """
+    API view to get education data. 
+    Contains a post method to get education data based on the indicator code, start year, end year and country code.
+    """
     permission_classes = [IsAuthenticated]
 
     def post(self, request):

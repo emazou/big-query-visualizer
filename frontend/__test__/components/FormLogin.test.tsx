@@ -1,37 +1,61 @@
-// FormLogin.test.tsx
-
 import React from 'react';
-import { render, fireEvent, waitFor, getByRole } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import FormLogin from '@/components/Forms/FormLogin';
-import { message } from 'antd';
-import * as userAPI from '@/features/user/userAPI';
-import { store } from '@/app/store';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
 
-jest.mock("../../src/features/user/userAPI");
+/**
+ * @description Mock reducer to test the component, 
+ * it is necessary to use the store to render the component
+ */
+const mockReducer = (state = {}) => state; 
+const store = configureStore({
+    reducer: mockReducer,
+});
+
 describe('FormLogin', () => {
-    test('renders the form with username and password inputs and submit button', () => {
-        const mockLogin = jest.fn().mockResolvedValue({ 
-            data: {},
-            status: 200,
-            success: true,
-            message: 'Login successful',
-        });
-        const mockUseLoginMutation = jest.fn().mockReturnValue([mockLogin, { isLoading: false }]);
-        (userAPI as jest.Mocked<typeof userAPI>).useLoginMutation.mockImplementation(mockUseLoginMutation);
-    
-        const { getByLabelText, getByText } = render(
+    test('renders inputs fields for username and password', () => {
+        render(
             <Provider store={store}>
                 <FormLogin />
             </Provider>
         );
-        const usernameInput = getByLabelText(/username/i);
-        const passwordInput = getByLabelText(/password/i);
-        const submitButton = getByText(/submit/i);
-
-        expect(usernameInput).toBeInTheDocument();
-        expect(passwordInput).toBeInTheDocument();
-        expect(submitButton).toBeInTheDocument();
+        expect(screen.getByLabelText(/username/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
+    });
+    test('displays error message when username is empty', async () => {
+        render(
+            <Provider store={store}>
+                <FormLogin />
+            </Provider>
+        );
+        fireEvent.submit(screen.getByRole('button', { name: /send/i }));
+        await waitFor(() => {
+            expect(screen.getByText(/please input your username!/i)).toBeInTheDocument();
+        });
+        await waitFor(() => {
+            expect(
+                screen.getByText(/your password must be at least 8 characters long/i)
+            ).toBeInTheDocument();
+        });
+    });
+    test('displays error message when password is empty', async () => {
+        render(
+            <Provider store={store}>
+                <FormLogin />
+            </Provider>
+        );
+        fireEvent.change(screen.getByLabelText(/username/i), {
+            target: { value: 'test' },
+        });
+        fireEvent.submit(screen.getByRole('button', { name: /send/i }));
+        await waitFor(() => {
+            expect(
+                screen.getByText(/your password must be at least 8 characters long/i)
+            ).toBeInTheDocument();
+        });
     });
 });
-

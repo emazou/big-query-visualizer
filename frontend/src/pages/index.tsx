@@ -1,10 +1,13 @@
 import { NextPage} from "next";
-import { Button, Col, Form, Row, Space } from "antd";
+import { Button, Col, Row, Space } from "antd";
 import styles from "@/styles/index.module.css";
 import { useRouter } from "next/router";
-import withValidatePageAuthentication 
-    from "@/app/hooks/withValidatePageAuthentication";
+import withValidatePageAuthentication from "@/app/hooks/withValidatePageAuthentication";
 
+/**
+ * @description Component to display the index page
+ * @returns index page, with login and register buttons
+ */
 const IndexPage: NextPage = () => {
     const { push } = useRouter();
     return (
