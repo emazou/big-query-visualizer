@@ -18,11 +18,11 @@ const FormRegister: FC = () => {
         register(values)
             .unwrap()
             .then((res) => {
-                message.success(res.message);
+                message.success(res?.message);
                 login({ username: values.username, password: values.password });
             })
             .catch((err) => {
-                forEach(err.data.message, (value, key) => {
+                forEach(err?.data?.message, (value, key) => {
                     message.error(`${key}: ${value}`);
                 });
             });

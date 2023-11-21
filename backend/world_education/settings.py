@@ -1,8 +1,10 @@
 from pathlib import Path 
 from datetime import timedelta
+import os
 from dotenv import load_dotenv
 
-load_dotenv()
+dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+load_dotenv(dotenv_path=dotenv_path)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -10,8 +12,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-iowpz*ils_fa5vt!u!m_gww44@#jl!^rb9npx9qcrb&kbdv1=2'
-
+SECRET_KEY = os.getenv('SECRET_KEY')
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -86,8 +88,12 @@ WSGI_APPLICATION = 'world_education.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('NAME'),                      
+        'USER': os.getenv('USER'),                    
+        'PASSWORD': os.getenv('PASSWORD'),      
+        'HOST': os.getenv('HOST'),                
+        'PORT': os.getenv('PORT'),
     }
 }
 #'default': {

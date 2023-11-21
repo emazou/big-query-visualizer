@@ -4,39 +4,27 @@ services:
   db:
     image: postgres:12
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: secretpassword
-      POSTGRES_DB: postgres
+      POSTGRES_USER: ${USER}
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_DB: ${NAME}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: part2-test-backend:latest
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: secretpassword
-      POSTGRES_DB: postgres
-      POSTGRES_HOST: db
-      POSTGRES_PORT: 5432
-    volumes:
-      - ./backend:/usr/src/app
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/vmtf-404516-37748537df37.json
+    env_file:
+      - .env
     ports:
       - "8000:8000"
     depends_on:
       - db
 
   frontend:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-      - /app/.next
+    image: part2-test-frontend:latest
     ports:
       - "9000:9000"
     depends_on:
