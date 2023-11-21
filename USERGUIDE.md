@@ -1,8 +1,16 @@
-# PART2-TEST Development Guide
+## PART2-TEST Application Description
 
-## Description
+PART2-TEST is a comprehensive full-stack application that combines the power of a Next.js frontend with a Django REST Framework backend. This application is uniquely designed to perform bigquery queries through an intuitive graphical interface, eliminating the need for direct SQL input. 
 
-PART2-TEST is a full-stack application that features a Next.js frontend and a Django REST Framework backend. It is crafted to perform bigquery queries through a graphical interface without the need for direct SQL input.
+### Key Features
+
+- **Query Saving**: Users can effortlessly save their queries for future reference, enhancing usability and efficiency.
+- **View All Saved Queries**: The platform allows users to view all queries saved by any user, fostering a collaborative environment.
+- **Commenting on Queries**: Users have the ability to comment on queries, enabling a dynamic exchange of ideas and insights.
+- **Delete Own Comments**: Each user has the control to delete their own comments, ensuring a manageable and relevant discussion.
+- **Manage Saved Queries**: Users can easily manage (edit/delete) their saved queries, providing a personalized experience.
+- **Authentication Module**: The application includes a robust authentication module, which is essential for performing any action within the app. This feature ensures secure access and operation.
+
 
 ## Getting Started
 
