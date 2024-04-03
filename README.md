@@ -38,8 +38,8 @@ Ensure you have the following installed:
 1. Clone the repository:
 
 ```bash
-git clone git@github.com:emazou/part2-test.git
-cd part2-test/backend
+git@github.com:emazou/big-query-visualizer.git
+cd big-query-visualizer/backend
 ```
 
 ## Set up a Python virtual environment
