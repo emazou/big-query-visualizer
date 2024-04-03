@@ -42,7 +42,7 @@ git clone git@github.com:emazou/part2-test.git
 cd part2-test/backend
 ```
 
-## set up a Python virtual environment
+## Set up a Python virtual environment
 
 ```
 python -m venv venv
