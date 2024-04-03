@@ -1,6 +1,6 @@
-## PART2-TEST Application Description
+## Big-Query-Visualizer Application Description
 
-PART2-TEST is a comprehensive full-stack application that combines the power of a Next.js frontend with a Django REST Framework backend. This application is uniquely designed to perform bigquery queries through an intuitive graphical interface, eliminating the need for direct SQL input. 
+Big-Query-Visualizer is a comprehensive full-stack application that combines the power of a Next.js frontend with a Django REST Framework backend. This application is uniquely designed to perform bigquery queries through an intuitive graphical interface, eliminating the need for direct SQL input. 
 
 ### Key Features
 
